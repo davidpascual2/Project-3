@@ -11,7 +11,7 @@ const {
 // add middleware if needed
 const { authMiddleware } = require('../../utils/auth');
 
-// add authMiddleware if needed
+// add authMiddleware if neededd
 router.route('/').post(createUser).put(authMiddleware, saveProperty);
 
 router.route('/login').post(login);
