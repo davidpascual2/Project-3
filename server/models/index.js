@@ -1,3 +1,4 @@
-const Users = require('./Users')
+const User = require('./User')
+const Property = require('./Property') // should this be a model?
 //ADD ANY ADDITIONAL MODEL PAGES
-module.exports = { Users };
+module.exports = { User, Property };
