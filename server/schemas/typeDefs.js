@@ -3,8 +3,8 @@ const { gql } = require('apollo-server-express');
 //SEE INPUT PROPERTY QUERY
 const typeDefs = gql`
 type Property {
-    propertyId: String 
-    address: [String]
+    listingId: String 
+    address: String
     price: String
     baths: Int
     beds: Int
@@ -16,6 +16,7 @@ type Property {
 type User {
     _id: ID!
     username: String
+    email: String
     propertyCount: Int
     savedProperties: [Property]
 }
@@ -38,8 +39,8 @@ type Query {
     me: User
 }
 type Mutation {
-    login(username: String!, password: String!): Auth
-    addUser(username: String!, password: String!): Auth
+    login(email: String!, password: String!): Auth
+    addUser(username: String!, email: String!, password: String!): Auth
     saveProperty(input: property!): User
     removeProperty(propertyId: ID!): User
 }
