@@ -18,6 +18,6 @@ router.route('/login').post(login);
 
 router.route('/me').get(authMiddleware, getSingleUser);
 
-router.route('/properties/propertyId').delete(authMiddleware, deleteProperty);
+router.route('/properties/:propertyId').delete(authMiddleware, deleteProperty);
 
 module.exports = router;

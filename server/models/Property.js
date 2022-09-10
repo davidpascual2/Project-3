@@ -3,7 +3,7 @@ const { Schema } = require('mongoose');
 const propertySchema = new Schema({
 
 //CHANGE AS NEEDED!!!
-    id: { //propertyId?
+    propertyId: { //propertyId?
         type: String,
         required: true,
         unique: true
