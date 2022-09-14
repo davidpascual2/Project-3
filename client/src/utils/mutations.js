@@ -26,15 +26,17 @@ mutation saveProperty($input: property!) {
     saveProperty(input: $input) {
         _id
         username
-        //TODO: refactor mutation to use property information
-        // bookCount
-        // savedBooks {
-        //     bookId
-        //     authors
-        //     description
-        //     image
-        //     link
-        //     title
+        propertyCount
+        savedProperties {
+            address
+            price
+            baths
+            beds
+            photo
+            rdc_web_url
+            sqft
+            lot_size
+            listing_id
         }
     }
 }`;
@@ -42,18 +44,19 @@ mutation saveProperty($input: property!) {
 export const REMOVE_PROPERTY = gql`
 mutation removeProperty($propertyId: ID!) {
     removeProperty(propertyId: $propertyId) {
-
-        //TODO: refactor mutation to use property information
         _id
         username
-        bookCount
-        savedBooks {
-            bookId
-            authors
-            description
-            image
-            link
-            title
+        propertyCount
+        savedProperties {
+            address
+            price
+            baths
+            beds
+            photo
+            rdc_web_url
+            sqft
+            lot_size
+            listing_id
         }
     }
 }`

@@ -1,9 +1,7 @@
-import "./App.css";
+import "./SearchProperties.css";
 import axios from 'axios';
 import { useState } from "react";
-import Property from "./components/Property";
-
-
+import Property from "../components/Property";
 
 function SearchProperties() {
   const [listings, setListings] = useState([]);

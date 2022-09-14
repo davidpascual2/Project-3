@@ -8,15 +8,26 @@ const routes = require('./routes')
 
 const PORT = process.env.PORT || 3001;
 
-const server = new ApolloServer({
-    typeDefs,
-    resolvers,
-    context: authMiddleWare // JWT auth headers - allow resolver to have headers become "conext" perameter
-});
+// const server = new ApolloServer({
+//     typeDefs,
+//     resolvers,
+//     context: authMiddleWare // JWT auth headers - allow resolver to have headers become "conext" perameter
+// });
 
 const app = express();
 
-server.applyMiddleware({app});
+async function startServer() {
+    const server = new ApolloServer({
+        typeDefs,
+        resolvers,
+        context: authMiddleWare // JWT auth headers - allow resolver to have headers become "conext" perameter
+    });
+
+    await server.start();
+    server.applyMiddleware({ app });
+}
+ startServer();
+ 
 app.use(express.urlencoded({extended: true }));
 app.use(express.json());
 

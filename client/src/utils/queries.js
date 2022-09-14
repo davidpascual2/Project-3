@@ -7,14 +7,15 @@ export const GET_ME = gql`
             username
             email
             savedProperties {
-//TODO: add information coresponding to properties
-
-                authors
-                description
-                title
-                image
-                link
-                bookId
+                address
+                price
+                baths
+                beds
+                photo
+                rdc_web_url
+                sqft
+                lot_size
+                listing_id
             }
         }
     }`

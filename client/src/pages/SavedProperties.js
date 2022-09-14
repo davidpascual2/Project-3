@@ -8,21 +8,21 @@ import { removePropertyId } from '../utils/localStorage';
 
 const SavedProperties = () => {
   const {loading, data} = useQuery(GET_ME);
-  const [removeProperty] = useMutation(REMOVE_Property);
+  const [removeProperty] = useMutation(REMOVE_PROPERTY); //!!!!!!!!!!!!!
   const userData = data?.me || [];
 
   // create function that accepts the propertie's mongo _id value as param and deletes the property from the database
-  const handleDeletePropety = async (propertyId) => {
+  const handleDeleteProperty = async (propertyId) => {
     const token = Auth.loggedIn() ? Auth.getToken() : null;
     if (!token) return false;
 
     try {
-      await removeProoperty({
+      await removeProperty({
         variables: {propertyId}
       })
 
       //only triggers if the removeProperty mutation is successful
-      removePropertyId(PropertyId);
+      removePropertyId(propertyId);
     } catch (e) {
       console.log(e);
     }
@@ -33,21 +33,21 @@ const SavedProperties = () => {
 
   return (
     <>
-      <Jumbotron fluid className='text-light bg-dark'>
+      <div fluid className='text-light bg-dark'>
         <Container>
           <h1>Viewing saved properties</h1>
         </Container>
-      </Jumbotron>
+      </div>
       <Container>
         <h2>
           {userData.savedProperties.length
             ? `Viewing ${userData.savedProperties.length} saved ${userData.savedProperties.length === 1 ? 'properties' : 'properties'}:`
             : 'You have no saved properties!'}
         </h2>
-        <CardColumns>
-          {userData.savedProperties.map((properties) => {
+        <div>
+          {userData.savedProperties.map((property) => {
             return (
-              <Card key={properties.propertyId} border='dark'>
+              <Card key={property.propertyId} border='dark'>
                 {property.image ? <Card.Img src={property.image} alt={`The cover for ${property.title}`} variant='top' /> : null}
                 <Card.Body>
                   <Card.Title>{property.title}</Card.Title>
@@ -60,10 +60,10 @@ const SavedProperties = () => {
               </Card>
             );
           })}
-        </CardColumns>
+        </div>
       </Container>
     </>
   );
 };
 
-export default savedProperties;
+export default SavedProperties;

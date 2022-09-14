@@ -4,8 +4,7 @@ const {
     getSingleUser,
     saveProperty,
     deleteProperty,
-    // getUsers?,
-    login
+    login,
 } = require('../../controllers/user-controller')
 
 // add middleware if needed

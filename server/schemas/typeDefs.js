@@ -1,17 +1,16 @@
 const { gql } = require('apollo-server-express');
 
-//SEE INPUT PROPERTY QUERY
 const typeDefs = gql`
 type Property {
-    listingId: String 
     address: String
     price: String
-    baths: Int
+    baths: String
     beds: Int
     photo: String
-    link: String
+    rdc_web_url: String
     sqft: String
     lot_size: String
+    listing_id: String
 }
 type User {
     _id: ID!
@@ -20,9 +19,9 @@ type User {
     propertyCount: Int
     savedProperties: [Property]
 }
-Input property {
+input property {
     propertyId: String 
-    address: [String]
+    address: String
     price: String
     baths: Int
     beds: Int
