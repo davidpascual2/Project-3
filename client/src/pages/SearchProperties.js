@@ -1,140 +1,125 @@
-import React, { useState, useEffect } from 'react';
-import { Jumbotron, Container, Col, Form, Button, Card, CardColumns } from 'react-bootstrap';
+import "./App.css";
+import axios from 'axios';
+import { useState } from "react";
+import Property from "./components/Property";
 
-import Auth from '../utils/auth';
-// import { searchGoogleBooks } from '../utils/API'; //replace with property/mortgage api
-import { savePropertyIds, getSavedPropertyIds } from '../utils/localStorage';
-import {useMutation} from '@apollo/react-hooks';
-import { SAVE_PROPERTY } from '../utils/mutations';
 
-const SearchProperties = () => {
-  // create state for holding returned google api data
-  const [searchedProperties, setSearchedProperties] = useState([]);
-  // create state for holding our search field data
-  const [searchInput, setSearchInput] = useState('');
 
-  // create state to hold saved propertyId values
-  const [savedPropertyIds, setSavedPropertyIds] = useState(getSavedPropertyIds());
-  const [saveProperty] = useMutation(SAVE_PROPERTY);
+function SearchProperties() {
+  const [listings, setListings] = useState([]);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const { state, city, bathrooms, bedrooms, minPrice, maxPrice } = e.target.elements;
 
-  // set up useEffect hook to save `savedBookIds` list to localStorage on component unmount
-  // learn more here: https://reactjs.org/docs/hooks-effect.html#effects-with-cleanup
-  useEffect(() => {
-    return () => savePropertyIds(savedPropertyIds);
+
+    const options = {
+      method: 'GET',
+      url: 'https://realty-in-us.p.rapidapi.com/properties/list-for-sale',
+      params: {
+      state_code: state.value,
+      city: city.value,
+      offset: '0',
+      limit: '20',
+      sort: 'relevance',
+      baths_min: bathrooms.value,
+      beds_min: bedrooms.value,
+      price_min: minPrice.value,
+      price_max: maxPrice.value
+    },
+    headers: {
+      'X-RapidAPI-Key': 'a5cc60833fmsh8bc4e368d7b4ea0p199293jsn2e49c05cbeef',
+      'X-RapidAPI-Host': 'realty-in-us.p.rapidapi.com'
+    }
+  };
+  
+  axios.request(options).then(function (response) {
+    console.log(response.data);
+    setListings(response.data.listings)
+
+  }).catch(function (error) {
+    console.error(error);
   });
-
-  // create method to search for books and set state on form submit
-  const handleFormSubmit = async (event) => {
-    event.preventDefault();
-
-    if (!searchInput) return false;
-
-    try {
-        //const response = await searchGoogleBooks(searchInput); replace with property search api
-
-      if (!response.ok) throw new Error('something went wrong!');
-      
-      const { items } = await response.json();
-
-      //TODO* refactor this data to match input from Properties data api
-    //   const bookData = items.map((book) => ({
-    //     bookId: book.id,
-    //     authors: book.volumeInfo.authors || ['No author to display'],
-    //     title: book.volumeInfo.title,
-    //     description: book.volumeInfo.description,
-    //     image: book.volumeInfo.imageLinks?.thumbnail || '',
-    //   }));
-
-      setSearchedProperties(propertyData);
-      setSearchInput('');
-    } catch (err) {
-      console.error(err);
-    }
   };
 
-  // create function to handle saving a property to our database
-  const handleSaveProperty = async (propertyId) => {
-    // find the propert in `searchedBooks` state by the matching id
-    const propertyToSave = searchedProperties.find((property) => property.propertyId === propertyId);
-
-    // get token
-    const token = Auth.loggedIn() ? Auth.getToken() : null;
-    if (!token) return false;
-
-    try {
-      await saveProperty({
-        variables: {input: propertyToSave}
-      })
-      
-      setSavedPropertyIds([...savedPropertyIds, propertyToSave.propertyId]);
-    } catch (err) {
-      console.error(err);
-    }
-  };
 
   return (
     <>
-      <Jumbotron fluid className='text-light bg-dark'>
-        <Container>
-          <h1>Search for Properties!</h1>
-          <Form onSubmit={handleFormSubmit}>
-            <Form.Row>
-              <Col xs={12} md={8}>
-                <Form.Control
-                  name='searchInput'
-                  value={searchInput}
-                  onChange={(e) => setSearchInput(e.target.value)}
-                  type='text'
-                  size='lg'
-                  placeholder='Search for a property'
-                />
-              </Col>
-              <Col xs={12} md={4}>
-                <Button type='submit' variant='success' size='lg'>
-                  Submit Search
-                </Button>
-              </Col>
-            </Form.Row>
-          </Form>
-        </Container>
-      </Jumbotron>
+    <div className="container">
 
-      <Container>
-        <h2>
-          {searchedProperties.length
-            ? `Viewing ${searchedProperties.length} results:`
-            : 'Search for a property to begin'}
-        </h2>
-        //TODO: refactor card column with correct property information
-        <CardColumns>
-          {searchedProperties.map((property) => {
-            return (
-              <Card key={property.propertyId} border='dark'>
-                {property.image ? (
-                  <Card.Img src={book.image} alt={`The cover for ${book.title}`} variant='top' />
-                ) : null}
-                <Card.Body>
-                  <Card.Title>{book.title}</Card.Title>
-                  <p className='small'>Authors: {book.authors}</p>
-                  <Card.Text>{property.description}</Card.Text>
-                  {Auth.loggedIn() && (
-                    <Button
-                      disabled={savedPropertyIds?.some((savedPropertyId) => savedPropertyId === property.propertyId)}
-                      className='btn-block btn-info'
-                      onClick={() => handleSaveProperty(property.propertyId)}>
-                      {savedPropertyIds?.some((savedPropertyId) => savedPropertyId === property.propertyId)
-                        ? 'This property has already been saved!'
-                        : 'Save this Property!'}
-                    </Button>
-                  )}
-                </Card.Body>
-              </Card>
-            );
-          })}
-        </CardColumns>
-      </Container>
+      <form onSubmit={handleSubmit}>
+        <h1>Search</h1>
+        <div className="ui divider"></div>
+        <div className="ui form">
+          <div className="field">
+            <label>State</label>
+            <input
+              type="text"
+              name="state"
+              placeholder="State"
+              id="state"
+            />
+          </div>
+          <div className="field">
+            <label>City</label>
+            <input
+              type="text"
+              name="city"
+              placeholder="City"
+              id="city"
+            />
+          </div>
+          <div className="field">
+            <label>Bathrooms</label>
+            <input
+              type="number"
+              name="bathrooms"
+              placeholder="Bathrooms"
+              id="bathrooms"
+            />
+            </div>
+            <div className="field">
+            <label>Bedrooms</label>
+            <input
+              type="number"
+              name="bedrooms"
+              placeholder="Bedrooms"
+              id="bedrooms"
+            />
+            </div>
+          <div className="field">
+            <label>Price(min)</label>
+            <input
+              type="number"
+              name="price(min)"
+              placeholder="Price(min)"
+              id="minPrice"
+            />
+            </div>
+          <div className="field">
+            <label>Price(max)</label>
+            <input
+              type="number"
+              name="price(max)"
+              placeholder="Price(max)"
+              id="maxPrice"
+              />
+          </div>
+          <button className="fluid ui button blue">Submit</button>
+        </div>
+      </form>
+    </div>
+    <div className="container">
+        <div className="container">
+          {listings.map((property) => <Property property={property} key={property.id} />)}
+        </div>
+    </div>
     </>
-  );
-};
+  )
+}
 
 export default SearchProperties;
+// return (
+//   <div><button onClick={getListings}>listings</button> Address:
+//   {listings.map((property) => <Property property={property} key={property.id} />)}
+//   </div>
+// );
