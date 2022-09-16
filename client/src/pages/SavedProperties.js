@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Jumbotron, Container, CardColumns, Card, Button } from 'react-bootstrap';
 import {GET_ME} from '../utils/queries';
-import {useQuery, useMutation} from '@apollo/react-hooks';
+import {useQuery, useMutation} from '@apollo/client';
 import { REMOVE_PROPERTY } from '../utils/mutations';
 import Auth from '../utils/auth';
 import { removePropertyId } from '../utils/localStorage';
@@ -10,7 +10,8 @@ const SavedProperties = () => {
   const {loading, data} = useQuery(GET_ME);
   const [removeProperty] = useMutation(REMOVE_PROPERTY); //!!!!!!!!!!!!!
   const userData = data?.me || [];
-
+  
+  console.log(userData, "SSSSSSSSSS")
   // create function that accepts the propertie's mongo _id value as param and deletes the property from the database
   const handleDeleteProperty = async (propertyId) => {
     const token = Auth.loggedIn() ? Auth.getToken() : null;
