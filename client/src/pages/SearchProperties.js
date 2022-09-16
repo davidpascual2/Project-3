@@ -8,7 +8,7 @@ function SearchProperties() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const { state, city, bathrooms, bedrooms, minPrice, maxPrice } = e.target.elements;
-
+  // console.log(e.target.elements)
 
     const options = {
       method: 'GET',
@@ -31,7 +31,7 @@ function SearchProperties() {
   };
   
   axios.request(options).then(function (response) {
-    console.log(response.data);
+    // console.log(response.data);
     setListings(response.data.listings)
 
   }).catch(function (error) {

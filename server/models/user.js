@@ -58,4 +58,4 @@ userSchema.virtual('propertyCount').get(function () {
 
 const User = model('User', userSchema);
 
-model.exports = User;
+module.exports = User;
