@@ -31,14 +31,16 @@ const resolvers = {
             if (!correctPw) throw new AuthenticationError('Incorrect credentials');
 
             const token = signToken(user);
+            console.log(token)
             return { token, user };
         },
         saveProperty: async(parent, {input}, context) => {
             if (context.user) {
+            console.log('Abdullllllllllllllll', input)
                 const userPropertyUpdate = await User.findByIdAndUpdate(
                     { _id: context.user._id },
-                    { $addToSet: {saveProperty: input }},
-                    { new: true, runValidators: true }
+                    { $push: {savedProperties: input }},
+                    { new: true }
                 );
                 return userPropertyUpdate;
             }

@@ -11,12 +11,12 @@ const [saveProp, { error, data }] = useMutation(SAVE_PROPERTY);
 console.log(data, "DATA@@@@@@@")
  const handleFavSubmit = async (event, house, baths, beds, sqft, lot_size) => {
   // event.preventDefault();
-  console.log(event, "EVENT%%%%%%%", house)
+  // console.log(event, "EVENT%%%%%%%", house)
   try{
   const { property  } = await saveProp({
     variables: { input:{address, price, baths, beds, photo, sqft, lot_size}},
   });
-  console.log(property, "PROPERTYYYYYYYYYY")
+  // console.log(property, "PROPERTYYYYYYYYYY")
 } catch (e) {
   console.error(e);
 }
@@ -38,10 +38,7 @@ console.log(data, "DATA@@@@@@@")
       <Button
         //  disabled={data?.some((data) => data === listing_id)}
          className='btn-block btn-info'
-         onClick={() => handleFavSubmit(listing_id, address)}>
-         {/* {data?.some((data) => data === listing_id)
-            ? 'This property has already been saved!'
-            : 'Save this Property!'} */}
+         onClick={() => handleFavSubmit(listing_id, address)}>Save
          </Button>
 
          {/* <Button

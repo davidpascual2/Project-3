@@ -10,75 +10,27 @@ import { getSavedPropertyIds, removePropertyId } from '../utils/localStorage';
 const SavedProperties = () => {
   const {loading, data} = useQuery(GET_ME);
   const [removeProperty] = useMutation(REMOVE_PROPERTY); 
-  // const userData = data?.me || [];
-  // <p className='small'>Price: {price}</p>
-  // <p className='small'>Bathrooms: {baths}</p>
-  // <p className='small'>Bedrooms: {beds}</p>
-  // <p className='small'>sqft: {sqft}</p>
-  // <p className='small'>lot_size: {lot_size}</p>
+// console.log(data.me.savedProperties)
   const userData = {};
-  userData["savedProperties"] = [
-    {
-      price: 123,
-      baths: 12,
-      sqft: 3448,
-      lot_size: 34849
-    },
-    {
-      price: 123,
-      baths: 12,
-      sqft: 3448,
-      lot_size: 34849
-    },
-    {
-      price: 123,
-      baths: 12,
-      sqft: 3448,
-      lot_size: 34849
-    },
-    {
-      price: 123,
-      baths: 12,
-      sqft: 3448,
-      lot_size: 34849
-    },
-    {
-      price: 123,
-      baths: 12,
-      sqft: 3448,
-      lot_size: 34849
-    },
-    {
-      price: 123,
-      baths: 12,
-      sqft: 3448,
-      lot_size: 34849
-    },
-    {
-      price: 123,
-      baths: 12,
-      sqft: 3448,
-      lot_size: 34849
-    }
-  ]
-  //???????????
-  // const [savedPropertyIds, setSavedPropertyIds] = useState(getSavedPropertyIds());
-  // const [ saveProperty] = useMutation(SAVE_PROPERTY)
+  // return(
+  // [address:
+  // price:
+  // photo:
+  // ]
   
-  // console.log(userData, "SSSSSSSSSS")
-  // create function that accepts the propertie's mongo _id value as param and deletes the property from the database
-  const handleDeleteProperty = async (propertyId) => {
+  
+  const handleDeleteProperty = async (event, house, baths, beds, sqft, lot_size) => {
     const token = Auth.loggedIn() ? Auth.getToken() : null;
     if (!token) return false;
 
     try {
       await removeProperty({
         // variables: {propertyId}
-        variables: {propertyId}
+        variables: {event, house, baths, beds, sqft, lot_size}
       })
 
       //only triggers if the removeProperty mutation is successful
-      removePropertyId(propertyId);
+      removePropertyId(event, house, baths, beds, sqft, lot_size);
     } catch (e) {
       console.log(e);
     }
@@ -87,41 +39,7 @@ const SavedProperties = () => {
   // if data isn't here yet, say so
   if (loading) return <h2>LOADING RESULTS...</h2>
 
-  // return (
-  //   <>
-  //     <div fluid className='text-light bg-dark'>
-  //       <Container>
-  //         <h1>Viewing saved properties</h1>
-  //       </Container>
-  //     </div>
-  //     <Container>
-  //       <h2>
-  //         {userData.savedProperties.length
-  //           ? `Viewing ${userData.savedProperties.length} saved ${userData.savedProperties.length === 1 ? 'properties' : 'properties'}:`
-  //           : 'You have no saved properties!'}
-  //       </h2>
-  //       <div>
-  //         {userData.savedProperties.map((property) => {
-  //           return (
-              
-  //             <Card key={property.propertyId} border='dark'>
-  //               {property.image ? <Card.Img src={property.image} alt={`The cover for ${property.title}`} variant='top' /> : null}
-  //               <Card.Body>
-  //                 <Card.Title>{property.title}</Card.Title>
-  //                 <p className='small'>Authors: {property.authors}</p>
-  //                 <Card.Text>{property.description}</Card.Text>
-  //                 <Button className='btn-block btn-danger' onClick={() => handleDeleteProperty(property.propertyId)}>
-  //                   Delete this Property!
-  //                 </Button>
-  //               </Card.Body>
-  //             </Card>
-  //           );
-  //         })}
-  //       </div>
-  //     </Container>
-  //   </>
-  // );
-
+  
 // };
   return (
     <>
@@ -132,12 +50,12 @@ const SavedProperties = () => {
       </div>
       <Container>
         <h2>
-          {userData.savedProperties.length > 0
-            ? `Viewing ${userData.savedProperties.length} saved ${userData.savedProperties.length === 1 ? 'property' : 'properties'}:`
+          {data.me.savedProperties.length > 0
+            ? `Viewing ${data.me.savedProperties.length} saved ${data.me.savedProperties.length === 1 ? 'property' : 'properties'}:`
             : 'You have no saved properties!'}
         </h2>
         <div>
-          {userData.savedProperties.map((property) => {
+          {data.me.savedProperties.map((property) => {
             console.log(property, "PROPERTY!!!!!!!!!!")
             return (
               <div className="container">
@@ -145,20 +63,16 @@ const SavedProperties = () => {
                     // key={propertyId} 
                     border='dark'
                     >
-                  {/* {photo ? (
-                    <Card.Img src={photo}  variant='top' />
-                  ) : null} */}
-                  <Card.Body>
+                   
+                  <Card.Body> 
                     {/* <Card.Title>{address}</Card.Title> */}
                     <p className='small'>Price: {property.price}</p>
-                    <p className='small'>Bathrooms: {property.baths}</p>
-                    <p className='small'>Bedrooms: {property.beds}</p>
-                    <p className='small'>sqft: {property.sqft}</p>
-                    <p className='small'>lot_size: {property.lot_size}</p>
-                  <Button className='btn-block btn-danger' onClick={() => 
-                    // handleDeleteProperty(propertyId)
-                    console.log("clicked")
-                  }>
+                    <p className='small'> Address: {property.address}</p>
+                    <img className='small' alt='picture of property' src= {property.photo}/>
+                  
+                    {/* <img >{property.photo}</img> */}
+                  <Button className='btn-block btn-danger' onClick={() => handleDeleteProperty(listing_id, address)}>
+                  
                     Delete this Property!
                   </Button>
                 </Card.Body>

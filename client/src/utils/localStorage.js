@@ -28,5 +28,3 @@ export const getSavedPropertyIds = () => {
   
     return true;
   };
-
-  

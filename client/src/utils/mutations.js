@@ -22,13 +22,13 @@ mutation loginUser($email: String!, $password: String!) {
 }`;
 
 export const SAVE_PROPERTY = gql`
-mutation saveProperty($input: property!) {
-    saveProperty(input: $input) {
-        _id
-        username
-        propertyCount
-        savedProperties {
-            address
+mutation SaveProperty($input: property!) {
+  saveProperty(input: $input) {
+    _id
+    username
+    propertyCount
+    savedProperties {
+               address
             price
             baths
             beds
@@ -37,10 +37,9 @@ mutation saveProperty($input: property!) {
             sqft
             lot_size
             listing_id
-        }
     }
+  }
 }`;
-
 export const REMOVE_PROPERTY = gql`
 mutation removeProperty($propertyId: ID!) {
     removeProperty(propertyId: $propertyId) {
