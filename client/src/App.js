@@ -30,12 +30,12 @@ function App() {
     <ApolloProvider client={client}>
       <Router>
         <>
-        <Navbar />
+        <Navbar className='navbarr '/>
         <Routes>
           <Route exact path="/" element={<SearchProperties/>}/> 
           <Route exact path="/saved" element={<SavedProperties/>}/>
           <Route render={() => <h1 className="display-2">Wrong page!</h1>}></Route> 
-          </Routes>
+        </Routes>
           </>
       </Router>
     </ApolloProvider>

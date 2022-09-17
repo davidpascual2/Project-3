@@ -48,7 +48,8 @@ const LoginForm = () => {
 
   return (
     <>
-      <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
+      <Form className="loginForm" noValidate validated={validated} onSubmit={handleFormSubmit}>
+        <h2>Login</h2>
         <Alert dismissible onClose={() => setShowAlert(false)} show={showAlert} variant='danger'>
           Something went wrong with your login credentials!
         </Alert>

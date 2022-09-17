@@ -83,6 +83,8 @@ body {
     transition: transform 200ms ease-in;
     margin-top: 1rem;
     text-align: center;
+    background: white;
+    border-radius: 10px;
 }
 
 .card:hover{
