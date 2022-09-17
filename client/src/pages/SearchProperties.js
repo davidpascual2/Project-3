@@ -1,7 +1,14 @@
 import "./SearchProperties.css";
+import React, { useState, useEffect } from 'react';
+// import { Jumbotron, Container, Col, Form, Button, Card, CardColumns } from 'react-bootstrap';
+import Auth from '../utils/auth';
+// import { SearchProperties } from '../utils/API';
+import { savePropertyIds, getSavedPropertyIds } from '../utils/localStorage';
 import axios from 'axios';
-import { useState } from "react";
+import {useMutation} from '@apollo/react-hooks';
+// import { useState } from "react";
 import Property from "../components/Property";
+import { SAVE_PROPERTY } from '../utils/mutations';
 
 function SearchProperties() {
   const [listings, setListings] = useState([]);
