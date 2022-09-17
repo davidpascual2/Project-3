@@ -71,7 +71,7 @@ const SavedProperties = () => {
                     <img className='small' alt='picture of property' src= {property.photo}/>
                   
                     {/* <img >{property.photo}</img> */}
-                  <Button className='btn-block btn-danger' onClick={() => handleDeleteProperty(listing_id, address)}>
+                  <Button className='btn-block btn-danger' onClick={() => handleDeleteProperty()}>
                   
                     Delete this Property!
                   </Button>
