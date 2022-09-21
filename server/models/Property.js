@@ -6,7 +6,6 @@ const propertySchema = new Schema({
     propertyId: { //propertyId?
         type: String,
         required: true,
-        unique: true
     },
     address: {
         type: String,
