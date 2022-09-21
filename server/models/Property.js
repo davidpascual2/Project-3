@@ -10,7 +10,6 @@ const propertySchema = new Schema({
     address: {
         type: String,
         required: true,
-        unique: true,
     },
     price: {
         type: String, //??????
