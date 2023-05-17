@@ -42,9 +42,9 @@ function SearchProperties() {
 
   return (
     <>
-    <div className="container">
+    <div className="searchPropContainer container">
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="searchForm d-flex flex-column rounded">
         <h1>Search</h1>
         <div className="ui divider"></div>
         <div className="ui form">
@@ -53,7 +53,7 @@ function SearchProperties() {
             <input
               type="text"
               name="state"
-              placeholder="State"
+              placeholder="WA"
               id="state"
             />
           </div>
@@ -102,15 +102,24 @@ function SearchProperties() {
               id="maxPrice"
               />
           </div>
-          <button className="fluid ui button blue">Submit</button>
+          <button className="searchButton">Submit</button>
         </div>
       </form>
     </div>
-    <div className="container">
+    {/* <div className="container">
         <div className="container">
           {listings.map((property) => <Property property={property} key={property.id} />)}
         </div>
+    </div> */}
+
+    <div className="resultsContainer container-fluid">
+      <div className="container">
+        {listings && listings.map((property) => (
+        <Property property={property} key={property.id} />
+      ))}
+      </div>
     </div>
+
     </>
   )
 }

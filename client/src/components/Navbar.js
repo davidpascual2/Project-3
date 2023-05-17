@@ -12,11 +12,16 @@ const AppNavbar = () => {
 
   return (
     <>
-      <Navbar bg='dark' variant='dark' expand='lg'>
-        <Container className='navbar'>
-          <Navbar.Brand as={Link} to='/'>
+      <Navbar className="container rounded" bg='dark' variant='dark' expand='lg'>
+        <div className='navbar'>
+          {/* <Navbar.Brand as={Link} to='/'>
             Home Finder
-          </Navbar.Brand>
+          </Navbar.Brand> */}
+          <div className="">
+                <Link to='/' className=''>
+                    <b className='logo'>Home-Finder</b>
+                </Link>
+          </div>
           {/* <Navbar.Toggle aria-controls='navbar' /> */}
           <Navbar.Collapse id='navbar'>
             <Nav className='ml-auto'>
@@ -36,7 +41,7 @@ const AppNavbar = () => {
               )}
             </Nav>
           </Navbar.Collapse>
-        </Container>
+        </div>
       </Navbar>
       {/* set modal data up */}
       <Modal
