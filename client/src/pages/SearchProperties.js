@@ -44,12 +44,13 @@ function SearchProperties() {
     e.preventDefault();
     console.log('Form submitted');
     // const { state, city, bathrooms, bedrooms, minPrice, maxPrice } = e.target.elements;
-    const { input } = e.target.elements;
+    const { location, minPrice, maxPrice, minBedroom, maxBedroom, minBathroom } = e.target.elements;
+    
   
     const options = {
       method: 'GET',
-      url: 'https://realty-in-us.p.rapidapi.com/locations/v2/auto-complete',
-      // url: 'https://realty-in-us.p.rapidapi.com/finance/rates',
+      // url: 'https://redfin-com-data.p.rapidapi.com/property/search',
+      url: 'https://redfin-com-data.p.rapidapi.com/property/search',
       params: {
         // state_code: state.value,
         // city: city.value,
@@ -60,12 +61,20 @@ function SearchProperties() {
         // beds_min: bedrooms.value,
         // price_min: minPrice.value,
         // price_max: maxPrice.value
-        input: input.value
+        location: location.value,
+        // page: "5",
+        min_price: minPrice.value,
+        max_price: maxPrice.value,
+        min_bedroom: minBedroom.value,
+        max_bedroom: maxBedroom.value,
+        min_bathroom: minBathroom.value,
+
+
       },
       headers: {
         // 'X-RapidAPI-Key': 'a5cc60833fmsh8bc4e368d7b4ea0p199293jsn2e49c05cbeef',
         'X-RapidAPI-Key': '7fde4b23d4msh46b4f1cb9569a9ep15d319jsnca4d96a9e4fa',
-        'X-RapidAPI-Host': 'realty-in-us.p.rapidapi.com'
+        'X-RapidAPI-Host': 'redfin-com-data.p.rapidapi.com'
       }
     };
 
@@ -131,15 +140,67 @@ function SearchProperties() {
         <h1>Search</h1>
         <div className="ui divider"></div>
         <div className="ui form">
-        <div className="field">
-            <label>Input</label>
+
+          <div className="field">
+            <label>Location</label>
             <input
               type="text"
-              name="input"
-              placeholder="input"
-              id="input"
+              name="cityState"
+              placeholder="Seattle, WA"
+              id="cityState"
             />
           </div>
+
+          <div className="field">
+            <label>Price Min</label>
+            <input
+              type="text"
+              name="minPrice"
+              placeholder="Price(min)"
+              id="minPrice"
+            />
+          </div>
+
+          <div className="field">
+            <label>Price Max</label>
+            <input
+              type="text"
+              name="maxPrice"
+              placeholder="Price(max)"
+              id="maxPrice"
+            />
+          </div>
+
+          <div className="field">
+            <label>Min Bedroom</label>
+            <input
+              type="text"
+              name="minBedroom"
+              placeholder="MinBedroom"
+              id="minBedroom"
+            />
+          </div>
+
+          <div className="field">
+            <label>Max Bedroom</label>
+            <input
+              type="text"
+              name="maxBedroom"
+              placeholder="maxBedroom"
+              id="maxBedroom"
+            />
+          </div>
+
+          <div className="field">
+            <label>Min bath</label>
+            <input
+              type="text"
+              name="minBathroom"
+              placeholder="minBathroom"
+              id="minBathroom"
+            />
+          </div>
+
           {/* <div className="field">
             <label>State</label>
             <input
@@ -157,8 +218,8 @@ function SearchProperties() {
               placeholder="City"
               id="city"
             />
-          </div>
-          <div className="field">
+          </div> */}
+          {/* <div className="field">
             <label>Bathrooms</label>
             <input
               type="number"
@@ -166,8 +227,9 @@ function SearchProperties() {
               placeholder="Bathrooms"
               id="bathrooms"
             />
-            </div>
-            <div className="field">
+          </div>
+
+          <div className="field">
             <label>Bedrooms</label>
             <input
               type="number"
@@ -175,7 +237,8 @@ function SearchProperties() {
               placeholder="Bedrooms"
               id="bedrooms"
             />
-            </div>
+          </div>
+
           <div className="field">
             <label>Price(min)</label>
             <input
@@ -184,7 +247,8 @@ function SearchProperties() {
               placeholder="Price(min)"
               id="minPrice"
             />
-            </div>
+          </div>
+
           <div className="field">
             <label>Price(max)</label>
             <input
@@ -194,6 +258,7 @@ function SearchProperties() {
               id="maxPrice"
               />
           </div> */}
+
           <button type="submit" className="searchButton">Submit</button>
         </div>
       </form>
