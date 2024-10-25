@@ -43,27 +43,35 @@ function SearchProperties() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('Form submitted');
-    const { state, city, bathrooms, bedrooms, minPrice, maxPrice } = e.target.elements;
+    // const { state, city, bathrooms, bedrooms, minPrice, maxPrice } = e.target.elements;
+    const { input } = e.target.elements;
   
     const options = {
       method: 'GET',
-      url: 'https://realty-in-us.p.rapidapi.com/properties/list-for-sale',
+      url: 'https://realty-in-us.p.rapidapi.com/locations/v2/auto-complete',
+      // url: 'https://realty-in-us.p.rapidapi.com/finance/rates',
       params: {
-        state_code: state.value,
-        city: city.value,
-        offset: '0',
-        limit: '20',
-        sort: 'relevance',
-        baths_min: bathrooms.value,
-        beds_min: bedrooms.value,
-        price_min: minPrice.value,
-        price_max: maxPrice.value
+        // state_code: state.value,
+        // city: city.value,
+        // offset: '0',
+        // limit: '20',
+        // sort: 'relevance',
+        // baths_min: bathrooms.value,
+        // beds_min: bedrooms.value,
+        // price_min: minPrice.value,
+        // price_max: maxPrice.value
+        input: input.value
       },
       headers: {
-        'X-RapidAPI-Key': 'a5cc60833fmsh8bc4e368d7b4ea0p199293jsn2e49c05cbeef',
+        // 'X-RapidAPI-Key': 'a5cc60833fmsh8bc4e368d7b4ea0p199293jsn2e49c05cbeef',
+        'X-RapidAPI-Key': '7fde4b23d4msh46b4f1cb9569a9ep15d319jsnca4d96a9e4fa',
         'X-RapidAPI-Host': 'realty-in-us.p.rapidapi.com'
       }
     };
+
+    //====
+
+    
   
     // axios.request(options).then((response) => {
     //   console.log('Response:', response.data);
@@ -123,7 +131,16 @@ function SearchProperties() {
         <h1>Search</h1>
         <div className="ui divider"></div>
         <div className="ui form">
-          <div className="field">
+        <div className="field">
+            <label>Input</label>
+            <input
+              type="text"
+              name="input"
+              placeholder="input"
+              id="input"
+            />
+          </div>
+          {/* <div className="field">
             <label>State</label>
             <input
               type="text"
@@ -176,7 +193,7 @@ function SearchProperties() {
               placeholder="Price(max)"
               id="maxPrice"
               />
-          </div>
+          </div> */}
           <button type="submit" className="searchButton">Submit</button>
         </div>
       </form>
