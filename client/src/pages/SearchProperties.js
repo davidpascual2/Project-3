@@ -43,25 +43,57 @@ function SearchProperties() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('Form submitted');
-    const { state, city, bathrooms, bedrooms, minPrice, maxPrice } = e.target.elements;
+    // const { state, city, bathrooms, bedrooms, minPrice, maxPrice } = e.target.elements;
+    const { location, minPrice, maxPrice, minBedroom, maxBedroom, minBathroom } = e.target.elements;
   
+    // const options = {
+    //   method: 'GET',
+    //   url: 'https://realty-in-us.p.rapidapi.com/properties/list-for-sale',
+    //   params: {
+    //     state_code: state.value,
+    //     city: city.value,
+    //     offset: '0',
+    //     limit: '20',
+    //     sort: 'relevance',
+    //     baths_min: bathrooms.value,
+    //     beds_min: bedrooms.value,
+    //     price_min: minPrice.value,
+    //     price_max: maxPrice.value
+    //   },
+    //   headers: {
+    //     'X-RapidAPI-Key': 'a5cc60833fmsh8bc4e368d7b4ea0p199293jsn2e49c05cbeef',
+    //     'X-RapidAPI-Host': 'realty-in-us.p.rapidapi.com'
+    //   }
+    // };
+
     const options = {
       method: 'GET',
-      url: 'https://realty-in-us.p.rapidapi.com/properties/list-for-sale',
+      // url: 'https://redfin-com-data.p.rapidapi.com/property/search',
+      url: 'https://redfin-com-data.p.rapidapi.com/property/search',
       params: {
-        state_code: state.value,
-        city: city.value,
-        offset: '0',
-        limit: '20',
-        sort: 'relevance',
-        baths_min: bathrooms.value,
-        beds_min: bedrooms.value,
-        price_min: minPrice.value,
-        price_max: maxPrice.value
+        // state_code: state.value,
+        // city: city.value,
+        // offset: '0',
+        // limit: '20',
+        // sort: 'relevance',
+        // baths_min: bathrooms.value,
+        // beds_min: bedrooms.value,
+        // price_min: minPrice.value,
+        // price_max: maxPrice.value
+        location: location.value,
+        // page: "5",
+        min_price: minPrice.value,
+        max_price: maxPrice.value,
+        min_bedroom: minBedroom.value,
+        max_bedroom: maxBedroom.value,
+        min_bathroom: minBathroom.value,
+
+
       },
       headers: {
-        'X-RapidAPI-Key': 'a5cc60833fmsh8bc4e368d7b4ea0p199293jsn2e49c05cbeef',
-        'X-RapidAPI-Host': 'realty-in-us.p.rapidapi.com'
+        // 'X-RapidAPI-Key': 'a5cc60833fmsh8bc4e368d7b4ea0p199293jsn2e49c05cbeef',
+        'X-RapidAPI-Key': '7fde4b23d4msh46b4f1cb9569a9ep15d319jsnca4d96a9e4fa',
+        'X-RapidAPI-Host': 'redfin-com-data.p.rapidapi.com'
       }
     };
   
